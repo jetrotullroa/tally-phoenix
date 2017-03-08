@@ -1,5 +1,6 @@
 defmodule Tally.Router do
   use Tally.Web, :router
+  use Coherence.Router         # Add this
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -7,16 +8,43 @@ defmodule Tally.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Coherence.Authentication.Session  # Add this
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug Coherence.Authentication.Session, protected: true  # Add this
+  end
+
+  scope "/" do
+    pipe_through :browser
+    coherence_routes
+  end
+
+  scope "/" do
+    pipe_through :protected
+    coherence_routes :protected
+  end
+
   scope "/", Tally do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+  end
+
+  scope "/", Tally do
+  pipe_through :protected
+
+  # add protected resources below
+  resources "/login", Tally.PrivateController
   end
 
   # Other scopes may use custom stacks.

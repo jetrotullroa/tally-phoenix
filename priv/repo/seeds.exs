@@ -9,3 +9,9 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+
+Tally.Repo.delete_all Tally.User
+
+Tally.User.changeset(%Tally.User{}, %{name: "Test User", email: "testuser@example.com", password: "secret", password_confirmation: "secret"})
+|> Tally.Repo.insert!
