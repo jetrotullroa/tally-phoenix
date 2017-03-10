@@ -13,7 +13,7 @@ defmodule Tally.Item do
 
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, [:name. :serial, :used_by, :quantity])
+    |> cast(params, [:name, :serial, :used_by, :quantity])
     |> validate_required([:name, :serial, :used_by, :quantity])
   end
 
