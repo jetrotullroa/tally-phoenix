@@ -41,10 +41,16 @@ defmodule Tally.Router do
   end
 
   scope "/", Tally do
-  pipe_through :protected
+    pipe_through :browser # Use the default browser stack
 
-  # add protected resources below
-  resources "/login", Tally.PrivateController
+    get "/items", ItemController, :index
+  end
+
+  scope "/", Tally do
+    pipe_through :protected
+
+    # add protected resources below
+    resources "/login", PrivateController
   end
 
   # Other scopes may use custom stacks.
