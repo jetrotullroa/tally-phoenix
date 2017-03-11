@@ -1,1 +1,5 @@
 <h1>This is INDEX</h1>
+
+<%= for item <- @items do %>
+  <p><%= item.name %></p>
+<% end %>
