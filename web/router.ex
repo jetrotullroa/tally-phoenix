@@ -43,7 +43,7 @@ defmodule Tally.Router do
   scope "/", Tally do
     pipe_through :browser # Use the default browser stack
 
-    get "/items", ItemController, :index
+    resources "/items", ItemController
   end
 
   scope "/", Tally do

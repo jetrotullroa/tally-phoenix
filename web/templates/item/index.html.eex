@@ -1,6 +1,8 @@
 
 <div class="top-component">
-  <a class="right btn-floating btn-medium waves-effect waves-light orange"><i class="material-icons">add</i></a>
+  <%= link to: item_path(@conn, :new), class: "right btn-floating btn-medium waves-effect waves-light orange" do %>
+    <i class="material-icons">add</i></a>
+  <% end %>
 </div>
 
 

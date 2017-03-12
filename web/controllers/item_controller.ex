@@ -3,17 +3,18 @@ defmodule Tally.ItemController do
 
   alias Tally.Item
 
-  def index(conn, params) do
+  def index(conn, _params) do
     items = Repo.all(Item)
     render conn, "index.html", items: items
   end
 
   def show(conn, params) do
-     
+
   end
 
-  def new(conn, params) do
-
+  def new(conn, _params) do
+    changeset = Item.changeset(%Item{}, %{})
+    render conn, "new.html", changeset: changeset
   end
 
   def create(conn, params) do
